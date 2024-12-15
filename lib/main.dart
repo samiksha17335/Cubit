@@ -27,17 +27,56 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatefulWidget {
+class MyHomePage extends StatefulWidget{
   const MyHomePage({super.key, required this.title});
 
 
   final String title;
 
+
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver{
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    WidgetsBinding.instance.removeObserver(this);
+  }
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    // TODO: implement didChangeAppLifecycleState
+    super.didChangeAppLifecycleState(state);
+    switch(state){
+
+      case AppLifecycleState.hidden:
+        print("hidden state");
+        break;
+      case AppLifecycleState.inactive:
+        print("inactive state");
+        break;
+
+      case AppLifecycleState.paused:
+        print("paused state");
+        break;
+
+      case AppLifecycleState.detached:
+        print("detached or kill state");
+        break;
+      case AppLifecycleState.resumed:
+        print("resumed state");
+        break;
+    }
+  }
   @override
   Widget build(BuildContext context) {
 
